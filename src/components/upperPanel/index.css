@@ -1,0 +1,57 @@
+#flexbox1 {
+    display: inline-block;
+    width: clamp(240px, 94%, 680px);
+}
+
+#flexbox2 {
+    display: inline-block;
+    width: clamp(240px, 82%, 400px);
+}
+
+.upper-panel{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5%;
+    margin-bottom: 2%;
+    height: 38px;
+}
+
+#search {
+    height: 34px;
+    flex: 2;
+    flex-basis: 60%;
+}
+
+.ant-input-affix-wrapper {
+    border-radius: 9px;
+    padding: 7px 5px 7px 9px;
+}
+
+#search-input {
+    width: 94%;
+    height: clamp(20px, calc(1em/64), 50px);
+    border-radius: 15px;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.search-icon {
+    background-color: #FBE0DC;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 4px;
+    float: right;
+}
+
+.upper-panel .emoji {
+    flex: 1;
+    font-size: 1.3rem;
+    background-color: #FFFFFF;
+    padding: 9px 4px 7px 4px;
+    border-radius: 9px;
+}
+
+.emoji .emj {
+    display: block;
+    margin: auto;
+}

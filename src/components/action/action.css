@@ -1,0 +1,26 @@
+.action {
+    display: block;
+    background-color: #F8F8F7;
+    padding: 2%;
+    margin-bottom: 2%;
+    border-radius: 4%;
+    font-size: 1em;
+}
+
+#description {
+    color: #8C8C8C;
+}
+
+#time{
+    margin: 0 5% 0 5%;
+    background-color: #FFFFFF;
+    padding: 1% 1.5% 1% 1.5%;
+    border-radius: 0.6rem;
+}
+
+#emoji {
+    position: relative;
+    bottom: 5px;
+    float: right;
+    font-size: 20px;
+}

@@ -1,0 +1,88 @@
+#flexbox2 {
+    display: inline-block;
+    width: clamp(240px, 94%, 680px);
+}
+
+.main-content {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px 6px 4px 6px;
+}
+
+.photo-grid {
+    display: grid;
+    gap: 1rem;
+
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 150px;
+
+}
+
+#upper-actions{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    margin-bottom: 2%;
+}
+
+
+#gallery {
+    background-color: #FF868E;
+    border-radius: 9px;
+    font-size: 0.8vw;
+    color: #FFFFFF;
+    flex-basis: 20%;
+    text-align: center;
+    padding-top: 1%;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+}
+
+.back {
+    background-color: #FBE0DC;
+    border-radius: 9px;
+    flex-basis: 10%;
+    padding: 4px;
+}
+
+#upload{
+    margin-left: 60%;
+    background-color: #FBE0DC;
+    border-radius: 9px;
+    padding: 4px 8px 0.6% 4px;
+    color: #FF868E;
+    font-size: 0.8rem;
+}
+
+#settings{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #F8F8F7;
+    row-gap: 15px;
+    column-gap: 6%;
+    padding: 2%;
+    border-radius: 9px;
+    margin-bottom: 2%;
+}
+
+.select{
+    border-radius: 9px;
+}
+
+
+
+
+
+#order, #breed{
+    padding-left: 4%;
+}
+
+#type, #limit {
+    padding-right: 4%;
+}
+
+.selector-label{
+    color: #8C8C8C;
+    font-size: 0.7rem;
+    padding: 0 0 0.8% 3%;
+}
