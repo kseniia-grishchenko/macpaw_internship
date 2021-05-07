@@ -1,10 +1,9 @@
 import React from 'react';
 import './sidebar.css';
 import { useHistory } from "react-router-dom";
-import * as axios from "axios";
 
 
-function SideBar() {
+function SideBar({ classname }) {
 
     const history = useHistory();
 
@@ -13,7 +12,7 @@ function SideBar() {
     }
 
     return(
-        <div className='sidebar-content'>
+        <div className={classname}>
             <img id='logo' src={'/images/Logo.png'}/>
             <h2 id='hi-intern'>Hi intern!</h2>
             <h4 id='welcome'>Welcome to MSI 2021 Front-end test</h4>

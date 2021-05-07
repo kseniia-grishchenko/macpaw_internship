@@ -1,17 +1,48 @@
-import React from 'react';
-import './index.css'
+import React, {useState} from 'react';
+import './index.css';
+import { useHistory } from 'react-router-dom'
+import {HeartOutlined} from "@ant-design/icons";
+import {addImageToFavourites, deleteImageFromFavourites} from "../../functions/api";
 
-export default function Image({image, index}){
+export default function Image({image, index, componentName, deleteClicked}){
+    const history = useHistory();
+        const handleBreedInfo = () => {
+            localStorage.setItem('image', JSON.stringify(image));
+            history.push( `/breed/${image.breed_id}`)
+        }
+
+        const addToFavourites = () => {
+            addImageToFavourites(image.id)
+                .then(resp => console.log(resp));
+        }
+
+        const deleteFromFavourites = () => {
+                deleteImageFromFavourites(image.id)
+                    .then(deleteClicked(true))
+        }
+
         let className = 'card';
-        if([0, 7, 10, 17].includes(index)){
+        if(index % 10 === 0 || index % 10 === 7){
             className ='card card-tall'
-        } else if([3, 8, 13, 18].includes(index)) {
+        } else if(index % 10 === 3 || index % 10 === 8) {
             className='card card-tall-wide'
         }
         return(
             <div key={image.id} className={className}>
                 <img src={image.url} className='breeds-img'/>
-                <div className='label'>{image.breed_name}</div>
+                {componentName === 'breeds' &&
+                    <div className='label' onClick={handleBreedInfo}>{image.breed_name}</div>
+                }
+                {componentName === 'gallery' &&
+                <span className='favEmoji' onClick={addToFavourites}>
+                    <HeartOutlined className='fav' style={{color: "#FF868E"}}/>
+                </span>
+                }
+                {componentName === 'favourites' &&
+                <span className='favEmoji' onClick={deleteFromFavourites}>
+                    <HeartOutlined className='fav' style={{color: "#FF868E"}}/>
+                </span>
+                }
             </div>
         )
 }

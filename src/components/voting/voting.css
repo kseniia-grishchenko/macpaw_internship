@@ -116,18 +116,6 @@
 }
 
 
-#voting {
-    background-color: #FF868E;
-    border-radius: 9px;
-    font-size: 0.8vw;
-    color: #FFFFFF;
-    flex-basis: 20%;
-    text-align: center;
-    padding-top: 1%;
-    box-sizing: border-box;
-    letter-spacing: 2px;
-}
-
 .back {
     background-color: #FBE0DC;
     border-radius: 9px;

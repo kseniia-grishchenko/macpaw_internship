@@ -5,13 +5,26 @@
 }
 
 .sidebar-content {
+    margin: 4vh 0 0 8%;
+    width: calc(42% - 25px);
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 2vw;
+    align-self: flex-start;
+}
+.sidebar-content-disabled{
     margin: 2vw 0 0 8%;
     width: calc(42% - 25px);
-    position: -webkit-sticky;
+    position: -webkit-sticky; /* for Safari */
     position: sticky;
+    top: 2vw;
+    align-self: flex-start;
+    pointer-events: none;
+    opacity: 0.6;
+
 }
 
-.sidebar-content #hi-intern {
+#hi-intern {
     font-size: clamp(20px, 2rem, 60px);
     line-height: 1.8em;
     font-weight: 500;
@@ -19,26 +32,26 @@
     margin-bottom: 0;
 }
 
-.sidebar-content #welcome {
+#welcome {
     font-weight: 400;
     margin-top: 5px;
     color: rgba(140,140,140,1);
 }
 
-.sidebar-content #start {
+#start {
     font-weight: 500;
     margin-top: 3.5em;
     color: rgba(29, 29, 29, 1);
     margin-bottom: 20px;
 }
 
-.sidebar-content h4 {
+h4 {
     font-size: clamp(14px, 1.2em, 45px);
     line-height: 1.5em;
     margin-bottom: 0;
 }
 
-.sidebar-content #grid {
+#grid {
     display: grid;
     grid-template-rows: 1fr 1fr ;
     grid-row-gap: 8px;
@@ -51,7 +64,7 @@
     height: clamp(150px, 9rem, 358px);
 }
 
-.sidebar-content .rectangle {
+.rectangle {
     width: clamp(104px, 6.3em, 250px);
     height: clamp(25px, 1em, 70px);
     background: #FFFFFF;

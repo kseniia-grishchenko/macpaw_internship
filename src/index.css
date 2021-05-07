@@ -16,16 +16,16 @@ code {
     monospace;
 }
 
-#root {
-  display: flex;
-  flex-direction: row;
-}
-
 #main {
   align-self: center;
   justify-content: center;
   width: 50%;
-  margin: 2vw auto auto;
+  margin: 4vh auto 0 auto;
+}
+
+.root{
+  display: flex;
+  justify-content: space-between;
 }
 
 

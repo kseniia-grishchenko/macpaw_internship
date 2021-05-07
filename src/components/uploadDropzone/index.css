@@ -1,0 +1,13 @@
+.dropzone{
+    height: 40vh;
+    border-color: #FF868E;
+    background-color: #FBE0DC;
+}
+
+.input-image{
+    display: inline-block;
+    margin: 3vh auto;
+    width: 100%;
+    object-fit: contain;
+    height: 34vh;
+}

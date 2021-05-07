@@ -5,14 +5,20 @@ import './voting.css';
 import Action from "../action/action";
 import UpperPanel from "../upperPanel/upperPanel";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { addImageToDislikes, addImageToLikes, addImageToFavourites } from "../../functions/api";
 
 export default function Voting () {
     const [actions ,setActions] = useState([])
     const [likes, setLikes] = useState([]);
     const [favourites, setFavourites] = useState([]);
     const [dislikes, setDislikes] = useState([]);
-    const [image, setImage] = useState('')
-    const [id, setId] = useState('')
+    const [image, setImage] = useState({});
+
+    let history = useHistory();
+    const goToPreviousPath = () => {
+        history.goBack()
+    }
 
     const config = {
         headers: {
@@ -23,53 +29,51 @@ export default function Voting () {
     useEffect(async () => {
         try{
             const resp = await axios.get(`${process.env.REACT_APP_API_URL}images/search/`, config);
-            setImage(resp.data[0].url);
-            setId(resp.data[0].id);
+            console.log('respp', resp)
+            setImage({
+                id: resp.data[0].id,
+                url: resp.data[0].url
+            });
         } catch(err) {
             console.error(err);
         }
     }, [likes, favourites, dislikes]);
 
     const addToLikes = () => {
-        const temp_likes = likes.filter(like => like !== id);
-        setLikes([...temp_likes, id]);
-        localStorage.setItem('likes', JSON.stringify(likes));
         let current = new Date();
         const hours = current.getHours();
         const minutes = current.getMinutes();
         const time = minutes.length === 1 ? `${hours} : 0${minutes}` : `${hours} : ${minutes}`;
         const action = {
             name: 'Likes',
-            imageId: id,
+            imageId: image.id,
             time: time
         }
+        console.log("imageId", image.id)
+
+        addImageToLikes(image.id)
+            .then(resp => console.log(resp));
 
         setActions([...actions, action]);
     }
 
     const addToFavourites = () => {
-        const temp_favourites = favourites.filter(favourite => favourite !== id);
-        setFavourites([...temp_favourites, id]);
-        localStorage.setItem('favourites', JSON.stringify(favourites));
-
         let current = new Date();
         const hours = current.getHours();
         const minutes = current.getMinutes();
         const time = minutes.length === 1 ? `${hours} : 0${minutes}` : `${hours} : ${minutes}`;
         const action = {
             name: 'Favourites',
-            imageId: id,
+            imageId: image.id,
             time: time
         }
 
+        addImageToFavourites(image.id)
+            .then(resp => console.log(resp));
         setActions([...actions, action]);
     }
 
     const addToDislikes = () => {
-        const temp_dislikes = dislikes.filter(dislike => dislike !== id);
-        setDislikes([...temp_dislikes, id]);
-        localStorage.setItem('dislikes', JSON.stringify(dislikes));
-
         let current = new Date();
         const hours = current.getHours();
         const minutes = current.getMinutes();
@@ -80,12 +84,16 @@ export default function Voting () {
         console.log('time', time)
         const action = {
             name: 'Dislikes',
-            imageId: id,
+            imageId: image.id,
             time: time
         }
+        addImageToDislikes(image.id)
+            .then(resp => console.log(resp));
 
         setActions([...actions, action]);
     }
+
+    console.log("image", image)
 
     return (
         <div className='voting'>
@@ -95,13 +103,14 @@ export default function Voting () {
                     <div className='main-content'>
                         <div id='upper-actions'>
                             <div>
-                                <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}/>
+                                <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}
+                                              onClick={goToPreviousPath}/>
                             </div>
-                            <div id='voting'>
+                            <div id='label'>
                                 VOTING
                             </div>
                         </div>
-                        <img className='main-img' src={image}/>
+                        <img className='main-img' alt={image.id} src={image.url}/>
                         <div id='action-panel'>
                             <div className='emoji smile' onClick={addToLikes} >
                                 <SmileOutlined className='emj' style={{color: "#FFFFFF"}}/>

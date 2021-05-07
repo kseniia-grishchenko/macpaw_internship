@@ -1,23 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Input} from "antd";
 import {FrownOutlined, HeartOutlined, SearchOutlined, SmileOutlined} from "@ant-design/icons";
 import './index.css';
+import { useHistory } from 'react-router-dom';
 
 export default function UpperPanel(){
+    const [breed, setBreed] = useState('');
+
+    const history = useHistory();
+
+    const handleBreedName = () => {
+        console.log('value', breed)
+        history.push(`/searchBreed/${breed}`);
+    }
+
+    const redirect = (path) => {
+        history.push(`/${path}`)
+    }
+
     return(
             <div id='flexbox1'>
                 <div className='upper-panel'>
                     <div id='search'>
-                        <Input id='search-input' bordered placeholder="Search for breeds by name" suffix={<SearchOutlined className='search-icon' style={{color: "#FF868E"}}/>} />
+                        <Input id='search-input' bordered placeholder="Search for breeds by name"   onChange={event => setBreed(event.target.value)} onPressEnter={handleBreedName} suffix={<SearchOutlined className='search-icon' onClick={handleBreedName} style={{color: "#FF868E"}}/>} />
                     </div>
-                    <div className='emoji'>
-                        <SmileOutlined className='emj' style={{color: "#FF868E"}}/>
+                    <div className='upEmoji'>
+                        <SmileOutlined className='upEmj' onClick={() => redirect('likes')} style={{color: "#FF868E"}}/>
                     </div>
-                    <div className='emoji'>
-                        <HeartOutlined className='emj' style={{color: "#FF868E"}}/>
+                    <div className='upEmoji'>
+                        <HeartOutlined className='upEmj' onClick={() => redirect('favourites')} style={{color: "#FF868E"}}/>
                     </div>
-                    <div className='emoji'>
-                        <FrownOutlined className='emj' style={{color: "#FF868E"}}/>
+                    <div className='upEmoji'>
+                        <FrownOutlined className='upEmj' style={{color: "#FF868E"}}/>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import Image from "../image/image";
 import {LeftOutlined, SortAscendingOutlined, SortDescendingOutlined} from "@ant-design/icons";
 import { Select } from 'antd';
 import {getImages, getBreeds} from "../../functions/api";
+import {useHistory} from "react-router-dom";
 
 export default function Breeds(){
     const [images, setImages] = useState([]);
@@ -13,9 +14,14 @@ export default function Breeds(){
 
     const [selectedBreed, setSelectedBreed] = useState({});
 
+    let history = useHistory();
+    const goToPreviousPath = () => {
+        history.goBack()
+    }
+
     const { Option } = Select;
 
-    const handleChangeBreed = value  => {
+    const handleChangeBreed = (value)  => {
         if(value === 'all'){
             setSelectedBreed(() => {});
             const params = {
@@ -52,14 +58,11 @@ export default function Breeds(){
     const  getAllImages = (params) => {
         getImages(params)
             .then(resp => {
-                const images = resp.map(image =>
-                    console.log(image.breeds[0]?.name)
-                )
-                console.log("resImg", images)
                 setImages(resp.map(image => ({
                     id: image.id,
                     url: image.url,
-                    breed_name: image.breeds[0]?.name
+                    breed_name: image.breeds[0]?.name,
+                    breed_id: image.breeds[0]?.id,
                 })))
             })
     }
@@ -109,9 +112,10 @@ export default function Breeds(){
                 <div className='main-content'>
                     <div id='upper-actions'>
                         <div>
-                            <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}/>
+                            <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}
+                                          onClick={goToPreviousPath}/>
                         </div>
-                        <div id='breeds'>
+                        <div id='label'>
                             BREEDS
                         </div>
                         <div id='select-breed'>
@@ -142,7 +146,7 @@ export default function Breeds(){
                     </div>
                     <div className="photo-grid">
                         {images.map((image, index) => (
-                            <Image image={image} index={index} breeds={breeds}/>
+                            <Image image={image} index={index} componentName={'breeds'}/>
                             )
                         )}
 

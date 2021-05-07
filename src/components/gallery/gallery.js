@@ -5,12 +5,15 @@ import './index.css'
 import {Select} from "antd";
 import Image from "../image/image";
 import {getBreeds, getImages} from "../../functions/api";
+import { useHistory } from "react-router-dom";
 
-export default function Gallery() {
+export default function Gallery({ sendData }) {
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [selectedBreed, setSelectedBreed] = useState({});
+
+    const history = useHistory();
 
     const { Option } = Select;
 
@@ -20,6 +23,10 @@ export default function Gallery() {
             order: order
         }
         getAllImages(params);
+    }
+
+    const goToPreviousPath = () => {
+        history.goBack()
     }
 
     const handleChangeType = (value) => {
@@ -66,6 +73,11 @@ export default function Gallery() {
 
     const handleChangeLimit = (value) =>{
         setLimit(value);
+    }
+
+    const uploadImage = () => {
+        history.push('/upload');
+        sendData('sidebar-content-disabled');
     }
 
     const reload = () => {
@@ -139,14 +151,14 @@ export default function Gallery() {
                 <div className='main-content'>
                     <div id='upper-actions'>
                         <div>
-                            <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}/>
+                            <LeftOutlined className='back' style={{color: "#FF868E", fontSize: '25px'}}
+                                          onClick={goToPreviousPath}/>
                         </div>
-                        <div id='gallery'>
+                        <div id='label'>
                             GALLERY
                         </div>
-                        <div id='upload'>
-                            <UploadOutlined className='upload' style={{color: "#FF868E", fontSize: '0.9rem' , padding: '6px'}}/>
-                            UPLOAD
+                        <div className='upload' onClick={uploadImage}>
+                            <UploadOutlined className='upload' style={{color: "#FF868E", fontSize: '0.9rem' , padding: '6px', marginLeft: 0}}/>UPLOAD
                         </div>
                     </div>
                     <div id='settings'>
@@ -190,7 +202,7 @@ export default function Gallery() {
                     </div>
                     <div className="photo-grid">
                         {images.map((image, index) =>
-                            <Image image={image} index={index}/>
+                            <Image image={image} index={index} componentName='gallery'/>
                         )}
                     </div>
                 </div>

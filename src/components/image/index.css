@@ -15,6 +15,7 @@
 }
 
 .breeds-img {
+    opacity: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -37,26 +38,58 @@
 .label{
     display: none;
     position: relative;
-    bottom: 15%;
     width: 96%;
     left: 2%;
     text-align: center;
     border-radius: 9px;
     z-index: 1000;
     background-color: #FFFFFF;
-    padding: 5px;
     color: #FF868E;
-    font-weight: bold;
+    font-size: 1.1rem;
+    line-height: 2rem;
+
+}
+
+.card:hover{
+    background: rgba(255, 134, 142, 0.6);
+    border-radius: 20px;
+}
+
+.card:hover > .label{
+    display: block;
+    bottom: 25%;
+
 }
 
 .card-tall:hover > .label{
     display: block;
-}
-
-.card-wide:hover > .label{
-    display: block;
+    bottom: 13%;
 }
 
 .card-tall-wide:hover > .label {
     display: block;
+    bottom: 15%;
 }
+
+.breeds-img:hover{
+    opacity: 0.3;
+}
+
+.favEmoji .fav {
+    position: relative;
+    left: 50%;
+    bottom: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: none;
+    margin: auto;
+    font-size: 25px;
+    background-color: #FFFFFF;
+    padding: 5px;
+    border-radius: 9px;
+}
+
+.card:hover > .favEmoji > .fav{
+    display: inline-block;
+}
+
+

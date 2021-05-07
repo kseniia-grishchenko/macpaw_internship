@@ -17,7 +17,6 @@
 }
 
 #search {
-    height: 34px;
     flex: 2;
     flex-basis: 60%;
 }
@@ -43,7 +42,7 @@
     float: right;
 }
 
-.upper-panel .emoji {
+.upper-panel .upEmoji {
     flex: 1;
     font-size: 1.3rem;
     background-color: #FFFFFF;
@@ -51,7 +50,19 @@
     border-radius: 9px;
 }
 
-.emoji .emj {
+.upEmoji .upEmj {
     display: block;
     margin: auto;
 }
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):active
+{
+    border-color: #FF868E;
+}
+
+.ant-input-affix-wrapper-focused{
+    border-color: #FF868E;
+    box-shadow: none;
+}
+
