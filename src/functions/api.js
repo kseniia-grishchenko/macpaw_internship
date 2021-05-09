@@ -116,7 +116,7 @@ async function getFavourites(){
     }
 }
 
-async function getLikes(){
+async function getVotes(value){
     try{
         const resp = await axios.get(`${process.env.REACT_APP_API_URL}votes`,
             {
@@ -125,7 +125,7 @@ async function getLikes(){
                 }
             })
         console.log('responsee', resp.data)
-        const likes = resp.data.filter(like => like.value === 1)
+        const likes = resp.data.filter(like => like.value === value)
         console.log("likes", likes)
         return likes;
     }catch (error){
@@ -133,4 +133,23 @@ async function getLikes(){
     }
 }
 
-export {getImages, getBreeds, addImageToLikes, addImageToDislikes, addImageToFavourites, deleteImageFromFavourites, getFavourites, getLikes};
+async function deleteImageFromVotes(image_id, vote_type){
+    try{
+        const votes = JSON.parse(localStorage.getItem(vote_type));
+        const image = votes.filter(vote => vote.image.id === image_id)
+        console.log('imageDel', image)
+        const resp = await axios.delete(`${process.env.REACT_APP_API_URL}votes/${image[0].vote_id}`,  {
+            headers: {
+                'x-api-key': process.env.REACT_APP_API_KEY,
+                'Content-Type': 'application/json',
+                'Host': 'api.thedogapi.com',
+            },
+        })
+        return resp.data
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export {getImages, getBreeds, addImageToLikes, addImageToDislikes, addImageToFavourites, deleteImageFromFavourites, getFavourites, getVotes, deleteImageFromVotes};

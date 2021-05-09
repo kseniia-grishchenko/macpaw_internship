@@ -12,14 +12,22 @@ import Upload from "./components/upload/upload";
 import Search from "./components/searchBreed/searchBreed";
 import Favourites from "./components/favourites/favourites";
 import Likes from "./components/likes/likes";
+import Dislikes from "./components/dislikes/dislikes";
 
 
 function App() {
     const [sidebarClassname, setSidebarClassname] = useState('sidebar-content');
+    const [mainClassname, setMainClassname] = useState('main');
     const [background, setBackground] = useState('#E5E5E5');
 
-    const sendData = (classname) => {
+
+
+    const getSidebarClassname = (classname) => {
         setSidebarClassname(classname);
+    }
+
+    const getMainClassname = (classname) => {
+        setMainClassname(classname);
     }
 
     useEffect(() => {
@@ -35,19 +43,21 @@ function App() {
   return (
       <div style={{background: background}} className='root'>
           <Router>
-              <SideBar classname={sidebarClassname}/>
-              <div id='main'>
-                  <Route path='/' component={Home} exact/>
-                  <Route path='/voting' component={Voting}/>
-                  <Route path='/breeds' component={Breeds}/>
-                  <Route path='/gallery' render={() => <Gallery sendData={sendData}/>}/>
+              <div id='sidebar'>
+                  <SideBar classname={sidebarClassname} sidebarName={getSidebarClassname} mainClassname={getMainClassname}/>
+              </div>
+              <div id={mainClassname}>
+                  <Route path='/' render={() => <Home sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>} exact/>
+                  <Route path='/voting' render={() => <Voting sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/breeds' render={() => <Breeds sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/gallery' render={() => <Gallery sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
 
-                  <Route path='/breed/:id' component={BreedInfo}/>
-                  <Route path='/upload' render={() => <Upload sendData={sendData}/>}/>
-
-                  <Route path='/searchBreed/:breedName' component={Search}/>
-                  <Route path='/favourites' component={Favourites}/>
-                  <Route path='/likes' component={Likes}/>
+                  <Route path='/breed/:id' render={(match) => <BreedInfo {...match} sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/upload' render={() => <Upload sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/searchBreed/:breedName' render={(match) => <Search {...match} sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/favourites' render={() => <Favourites sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/likes' render={() => <Likes sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
+                  <Route path='/dislikes' render={() => <Dislikes sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>}/>
               </div>
           </Router>
       </div>

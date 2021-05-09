@@ -6,10 +6,12 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { getVotes } from "../../functions/api";
 import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
-export default function Likes({sidebarClassname, mainClassname}) {
+export default function Dislikes({sidebarClassname, mainClassname}) {
     const [deleteImage, setDeleteImage] = useState(false);
     const [images, setImages] = useState([])
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
 
     let history = useHistory();
     const goToPreviousPath = () => {
@@ -22,8 +24,8 @@ export default function Likes({sidebarClassname, mainClassname}) {
         }
     }
 
-    const getVotedImages = async() => {
-        const response = await getVotes(1)
+    const getDislikedImages = async() => {
+        const response = await getVotes(0)
         let newImages = [];
         for(let index = 0; index < response.length; index++) {
             const resp = await axios.get(`${process.env.REACT_APP_API_URL}images/${response[index].image_id}`)
@@ -34,19 +36,21 @@ export default function Likes({sidebarClassname, mainClassname}) {
             newImages.push(image);
         }
         setImages(newImages);
-        localStorage.setItem('likes', JSON.stringify(newImages));
+        localStorage.setItem('dislikes', JSON.stringify(newImages));
         return newImages;
     }
 
     useEffect(() => {
-        getVotedImages()
+        getDislikedImages()
             .then(respImages => setImages(respImages));
-
+        setIsInfoLoading(false);
     }, [])
 
     useEffect(() => {
-        getVotedImages()
+        setIsInfoLoading(true);
+        getDislikedImages()
             .then(respImages => setImages(respImages));
+        setIsInfoLoading(false);
 
     }, [deleteImage])
 
@@ -71,16 +75,17 @@ export default function Likes({sidebarClassname, mainClassname}) {
                                               onClick={goToPreviousPath}/>
                             </div>
                             <div id='label'>
-                                LIKES
+                                DISLIKES
                             </div>
                         </div>
-                            <div className="photo-grid">
-                                {images?.map((like, index) => (
-                                        <Image image={like.image} index={index} componentName={'likes'}
-                                               deleteClicked={deleteClicked}/>
-                                    )
-                                )}
-                            </div>
+                        {isInfoLoading ? <Loader/> :
+                        <div className="photo-grid">
+                            {images?.map((like, index) => (
+                                    <Image image={like.image} index={index} componentName={'dislikes'}
+                                           deleteClicked={deleteClicked}/>
+                                )
+                            )}
+                        </div>}
                     </div>
                 </div>
             </div>

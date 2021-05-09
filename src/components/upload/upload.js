@@ -4,14 +4,16 @@ import  './index.css';
 import { useHistory } from "react-router-dom";
 import DropzoneArea from "../uploadDropzone/uploadDropzone";
 import axios from "axios";
+import SideMenu from "../sideMenu/sideMenu";
 
-export default function Upload({ sendData }){
+export default function Upload({ sidebarClassname, mainClassname }){
     const [isUploaded, setIsUploaded] = useState(false);
     const [image, setImage] = useState({});
     const [successfullyUploaded, setSuccessfullyUploaded] = useState(false);
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('')
     const history = useHistory();
+
 
     const config = {
         headers: {
@@ -20,11 +22,10 @@ export default function Upload({ sendData }){
         }
     }
 
-    sendData('sidebar-content-disabled');
 
     const handleClose = () => {
         history.push('/gallery');
-        sendData('sidebar-content');
+        sidebarClassname('sidebar-content');
     }
 
     const checkIfUploaded = (value) => {
@@ -42,7 +43,7 @@ export default function Upload({ sendData }){
         console.log('formdata', formData)
 
         try{
-            const resp = await axios.post('https://api.thedogapi.com/v1/images/upload', formData, config);
+            const resp = await axios.post(`${process.env.REACT_APP_API_URL}images/upload`, formData, config);
             if(resp.status === 201){
                 setSuccessfullyUploaded(true);
                 setSuccess(true);
@@ -56,6 +57,13 @@ export default function Upload({ sendData }){
     }
 
     useEffect(() => {
+        if(window.screen.width < 800){
+            sidebarClassname('sidebar-content');
+            mainClassname('main')
+        }else{
+            sidebarClassname('sidebar-content-disabled');
+        }
+
         if(successfullyUploaded){
             setSuccessfullyUploaded(false)
 
@@ -69,9 +77,16 @@ export default function Upload({ sendData }){
         }
     }, [isUploaded])
 
-
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
 
     return(
+        <div id='main-content'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
         <div id='upload' style={{height: "90vh", paddingBottom: 40, marginBottom: "6vh"}}>
             <div id='close'>
                 <CloseOutlined style={{fontSize: 22, color: '#FF868E', backgroundColor: '#FFFFFF', padding: 5, borderRadius: 9}}
@@ -81,8 +96,7 @@ export default function Upload({ sendData }){
             <div id='uploadDescription'>Any uploads must comply with the <a style={{color: '#FF868E'}}
             href='https://www.thedogapi.com/privacy' target='_blank'>upload guidelines</a> or face deletion.</div>
             {!successfullyUploaded &&
-            <DropzoneArea checkIfUploaded={checkIfUploaded} getImage={getImage}
-                          />
+            <DropzoneArea checkIfUploaded={checkIfUploaded} getImage={getImage}/>
             }
             { !isUploaded &&
             <div id='image-label'>
@@ -111,6 +125,7 @@ export default function Upload({ sendData }){
                 <span>No Dog found - try a different one</span>
             </div>
             }
+        </div>
         </div>
     )
 }

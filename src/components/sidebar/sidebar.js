@@ -1,18 +1,29 @@
 import React from 'react';
 import './sidebar.css';
 import { useHistory } from "react-router-dom";
+import SideMenu from "../sideMenu/sideMenu";
 
 
-function SideBar({ classname }) {
+function SideBar({ classname, sidebarName, mainClassname }) {
 
     const history = useHistory();
 
     function redirect(path){
-        history.push('/' + path)
+        history.push('/' + path);
+        sidebarName('sidebar-content');
+        mainClassname('main');
+    }
+
+    const getSidebarName = (value) => {
+        sidebarName(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
     }
 
     return(
         <div className={classname}>
+            <SideMenu componentName={'sidebar'} sidebarClassname={getSidebarName} mainClassname={getMainClassname}/>
             <img id='logo' src={'/images/Logo.png'}/>
             <h2 id='hi-intern'>Hi intern!</h2>
             <h4 id='welcome'>Welcome to MSI 2021 Front-end test</h4>

@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {FrownOutlined, HeartOutlined, LeftOutlined, SmileOutlined} from "@ant-design/icons";
+import {FrownOutlined, HeartOutlined, LeftOutlined, MenuUnfoldOutlined, SmileOutlined} from "@ant-design/icons";
 import './index.css';
 import { useHistory } from "react-router-dom";
+import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
 
-export default function BreedInfo({ match }){
+export default function BreedInfo({ match, sidebarClassname, mainClassname }){
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
     const breed_id = match.params.id;
     const image = JSON.parse(localStorage.getItem('image'));
     const breeds = JSON.parse(localStorage.getItem('breeds'));
@@ -15,8 +18,21 @@ export default function BreedInfo({ match }){
         history.goBack()
     }
 
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
+
+    useEffect(() => {
+        setIsInfoLoading(false);
+    })
+
+
     return(
         <div className='breedInfo'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div>
                 <div id='flexbox2'>
@@ -33,6 +49,8 @@ export default function BreedInfo({ match }){
                                 {breed_id}
                             </div>
                         </div>
+                        {isInfoLoading ? <Loader/> :
+                        <div>
                         <div>
                             <img className='main-img' src={image.url}/>
                         </div>
@@ -61,6 +79,7 @@ export default function BreedInfo({ match }){
                                 </div>
                             </div>
                         </div>
+                    </div>}
                     </div>
                 </div>
             </div>

@@ -10,7 +10,6 @@ export default function UpperPanel(){
     const history = useHistory();
 
     const handleBreedName = () => {
-        console.log('value', breed)
         history.push(`/searchBreed/${breed}`);
     }
 
@@ -31,7 +30,7 @@ export default function UpperPanel(){
                         <HeartOutlined className='upEmj' onClick={() => redirect('favourites')} style={{color: "#FF868E"}}/>
                     </div>
                     <div className='upEmoji'>
-                        <FrownOutlined className='upEmj' style={{color: "#FF868E"}}/>
+                        <FrownOutlined className='upEmj'  onClick={() => redirect('dislikes')} style={{color: "#FF868E"}}/>
                     </div>
                 </div>
             </div>

@@ -2,15 +2,18 @@ import React, {useEffect, useState, useRef} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
 import './index.css';
 import Image from "../image/image";
-import {LeftOutlined, SortAscendingOutlined, SortDescendingOutlined} from "@ant-design/icons";
+import {LeftOutlined, MenuUnfoldOutlined, SortAscendingOutlined, SortDescendingOutlined} from "@ant-design/icons";
 import { Select } from 'antd';
 import {getImages, getBreeds} from "../../functions/api";
 import {useHistory} from "react-router-dom";
+import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
-export default function Breeds(){
+export default function Breeds({sidebarClassname, mainClassname}){
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
 
     const [selectedBreed, setSelectedBreed] = useState({});
 
@@ -85,6 +88,7 @@ export default function Breeds(){
 
             getAllImages(params);
             getAllBreeds();
+            setIsInfoLoading(false);
         } catch(err) {
             console.error(err);
         }
@@ -102,11 +106,21 @@ export default function Breeds(){
                 limit: limit
             }
         }
+        setIsInfoLoading(true);
         getAllImages(params)
+        setIsInfoLoading(false);
     }, [limit])
+
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
 
     return(
         <div className='breeds'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div id='flexbox2'>
                 <div className='main-content'>
@@ -119,13 +133,13 @@ export default function Breeds(){
                             BREEDS
                         </div>
                         <div id='select-breed'>
-                            <Select placeholder="All breeds" style={{ width: 240 }} onChange={handleChangeBreed}>
+                            <Select placeholder="All breeds" onChange={handleChangeBreed}>
                                 <Option value="all">All breeds</Option>
                                 {breeds.map(breed => <Option value={breed.name}>{breed.name}</Option>)}
                             </Select>
                         </div>
                         <div id='select-limit'>
-                            <Select placeholder="Limit: " defaultValue="10" style={{ width: 185 }} onChange={handleChangeLimit}>
+                            <Select placeholder="Limit: " defaultValue="10" onChange={handleChangeLimit}>
                                 <Option value="5">Limit: 5</Option>
                                 <Option value="10">Limit: 10</Option>
                                 <Option value="15">Limit: 15</Option>
@@ -142,15 +156,14 @@ export default function Breeds(){
                                                    onClick={() => sortBy('asc')}
                             />
                         </div>
-
                     </div>
+                    {isInfoLoading ? <Loader/> :
                     <div className="photo-grid">
                         {images.map((image, index) => (
                             <Image image={image} index={index} componentName={'breeds'}/>
                             )
                         )}
-
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

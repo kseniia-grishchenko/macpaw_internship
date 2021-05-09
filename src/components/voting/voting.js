@@ -1,19 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import { Input } from 'antd';
-import { SearchOutlined, SmileOutlined, HeartOutlined, FrownOutlined, LeftOutlined } from '@ant-design/icons';
+import {
+    SearchOutlined,
+    SmileOutlined,
+    HeartOutlined,
+    FrownOutlined,
+    LeftOutlined,
+    LoadingOutlined,
+    MenuUnfoldOutlined
+} from '@ant-design/icons';
 import './voting.css';
 import Action from "../action/action";
 import UpperPanel from "../upperPanel/upperPanel";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { addImageToDislikes, addImageToLikes, addImageToFavourites } from "../../functions/api";
+import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
-export default function Voting () {
+export default function Voting ({sidebarClassname, mainClassname}) {
     const [actions ,setActions] = useState([])
-    const [likes, setLikes] = useState([]);
-    const [favourites, setFavourites] = useState([]);
-    const [dislikes, setDislikes] = useState([]);
     const [image, setImage] = useState({});
+    const [isImageLoading, setIsImageLoading] = useState(true);
 
     let history = useHistory();
     const goToPreviousPath = () => {
@@ -26,10 +34,9 @@ export default function Voting () {
         }
     }
 
-    useEffect(async () => {
+    const refreshImage = async () => {
         try{
             const resp = await axios.get(`${process.env.REACT_APP_API_URL}images/search/`, config);
-            console.log('respp', resp)
             setImage({
                 id: resp.data[0].id,
                 url: resp.data[0].url
@@ -37,7 +44,12 @@ export default function Voting () {
         } catch(err) {
             console.error(err);
         }
-    }, [likes, favourites, dislikes]);
+    }
+
+    useEffect(async () => {
+            await refreshImage();
+            setIsImageLoading(false)
+    }, []);
 
     const addToLikes = () => {
         let current = new Date();
@@ -52,7 +64,9 @@ export default function Voting () {
         console.log("imageId", image.id)
 
         addImageToLikes(image.id)
-            .then(resp => console.log(resp));
+            .then(resp => {
+                refreshImage();
+            });
 
         setActions([...actions, action]);
     }
@@ -61,7 +75,7 @@ export default function Voting () {
         let current = new Date();
         const hours = current.getHours();
         const minutes = current.getMinutes();
-        const time = minutes.length === 1 ? `${hours} : 0${minutes}` : `${hours} : ${minutes}`;
+        const time = minutes < 10 ? `${hours} : 0${minutes}` : `${hours} : ${minutes}`;
         const action = {
             name: 'Favourites',
             imageId: image.id,
@@ -69,7 +83,9 @@ export default function Voting () {
         }
 
         addImageToFavourites(image.id)
-            .then(resp => console.log(resp));
+            .then(resp => {
+                refreshImage();
+            });
         setActions([...actions, action]);
     }
 
@@ -87,16 +103,25 @@ export default function Voting () {
             imageId: image.id,
             time: time
         }
+
         addImageToDislikes(image.id)
-            .then(resp => console.log(resp));
+            .then(resp => {
+                refreshImage();
+            });
 
         setActions([...actions, action]);
     }
 
-    console.log("image", image)
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
 
     return (
         <div className='voting'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div>
                 <div id='flexbox2'>
@@ -110,8 +135,10 @@ export default function Voting () {
                                 VOTING
                             </div>
                         </div>
-                        <img className='main-img' alt={image.id} src={image.url}/>
-                        <div id='action-panel'>
+                        {isImageLoading ?  <Loader/> :
+                            (<div>
+                                <img className='main-img' alt={image.id} src={image.url}/>
+                            <div id='action-panel'>
                             <div className='emoji smile' onClick={addToLikes} >
                                 <SmileOutlined className='emj' style={{color: "#FFFFFF"}}/>
                             </div>
@@ -121,7 +148,8 @@ export default function Voting () {
                             <div className='emoji frown' onClick={addToDislikes}>
                                 <FrownOutlined className='emj' style={{color: "#FFFFFF"}}/>
                             </div>
-                        </div>
+                            </div>
+                            </div>)}
                         {actions.map(action =>
                             <Action action={action.name} imageId={action.imageId} time={action.time}/>
                         )}

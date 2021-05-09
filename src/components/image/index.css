@@ -75,7 +75,7 @@
     opacity: 0.3;
 }
 
-.favEmoji .fav {
+.emoji .fav {
     position: relative;
     left: 50%;
     bottom: 50%;
@@ -88,7 +88,7 @@
     border-radius: 9px;
 }
 
-.card:hover > .favEmoji > .fav{
+.card:hover > .emoji > .fav{
     display: inline-block;
 }
 

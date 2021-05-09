@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined} from "@ant-design/icons";
+import {LeftOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import Image from "../image/image";
 import {useHistory} from "react-router-dom";
 import axios from "axios";
 import {deleteImageFromFavourites, getFavourites} from "../../functions/api";
+import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
-export default function Favourites(){
+export default function Favourites({sidebarClassname, mainClassname}){
     const [favourites, setFavorites] = useState([]);
     const [deleteImage, setDeleteImage] = useState(false);
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
 
     let history = useHistory();
     const goToPreviousPath = () => {
@@ -29,6 +32,7 @@ export default function Favourites(){
                 setFavorites(resp)
                 setDeleteImage(false)
             })
+        setIsInfoLoading(false);
 
     }, [])
 
@@ -41,9 +45,17 @@ export default function Favourites(){
 
     }, [deleteImage])
 
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
+
 
     return(
         <div>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div>
                 <div id='flexbox2'>
@@ -57,13 +69,14 @@ export default function Favourites(){
                                 FAVOURITES
                             </div>
                         </div>
+                        {isInfoLoading ? <Loader/> :
                         <div className="photo-grid">
                             {favourites?.map((favourite, index) => (
                                     <Image image={favourite.image} index={index} componentName={'favourites'}
                                     deleteClicked={deleteClicked}/>
                                 )
                             )}
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

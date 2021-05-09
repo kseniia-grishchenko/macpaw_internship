@@ -1,11 +1,11 @@
 #flexbox1 {
     display: inline-block;
-    width: clamp(240px, 94%, 680px);
+    width: 100%;
 }
 
 #flexbox2 {
-    display: inline-block;
-    width: clamp(240px, 82%, 400px);
+    display: block;
+    width: 100%;
 }
 
 .upper-panel{
@@ -16,10 +16,6 @@
     height: 38px;
 }
 
-#search {
-    flex: 2;
-    flex-basis: 60%;
-}
 
 .ant-input-affix-wrapper {
     border-radius: 9px;
@@ -27,7 +23,7 @@
 }
 
 #search-input {
-    width: 94%;
+    width: 93%;
     height: clamp(20px, calc(1em/64), 50px);
     border-radius: 15px;
     font-size: 1rem;
@@ -43,11 +39,12 @@
 }
 
 .upper-panel .upEmoji {
-    flex: 1;
     font-size: 1.3rem;
     background-color: #FFFFFF;
     padding: 9px 4px 7px 4px;
     border-radius: 9px;
+    display: inline-block;
+    flex-basis: 6%;
 }
 
 .upEmoji .upEmj {

@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined, ReloadOutlined, UploadOutlined} from "@ant-design/icons";
+import {LeftOutlined, MenuUnfoldOutlined, ReloadOutlined, UploadOutlined} from "@ant-design/icons";
 import './index.css'
 import {Select} from "antd";
 import Image from "../image/image";
 import {getBreeds, getImages} from "../../functions/api";
 import { useHistory } from "react-router-dom";
+import SideMenu from "../sideMenu/sideMenu";
 
-export default function Gallery({ sendData }) {
+export default function Gallery({ sidebarClassname, mainClassname }) {
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -77,7 +78,7 @@ export default function Gallery({ sendData }) {
 
     const uploadImage = () => {
         history.push('/upload');
-        sendData('sidebar-content-disabled');
+        sidebarClassname('sidebar-content-disabled');
     }
 
     const reload = () => {
@@ -144,8 +145,17 @@ export default function Gallery({ sendData }) {
         getAllImages(params)
     }, [limit])
 
+
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
+
     return(
         <div className='breeds'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div id='flexbox2'>
                 <div className='main-content'>
@@ -158,7 +168,8 @@ export default function Gallery({ sendData }) {
                             GALLERY
                         </div>
                         <div className='upload' onClick={uploadImage}>
-                            <UploadOutlined className='upload' style={{color: "#FF868E", fontSize: '0.9rem' , padding: '6px', marginLeft: 0}}/>UPLOAD
+                            <UploadOutlined className='upload' style={{color: "#FF868E", fontSize: '0.8rem' , padding: '6px', width: "30%"}}/>
+                            UPLOAD
                         </div>
                     </div>
                     <div id='settings'>
@@ -190,14 +201,14 @@ export default function Gallery({ sendData }) {
                         </div>
                         <div className='selector' id='limit'>
                             <div className='selector-label'>LIMIT</div>
-                            <Select className='select' defaultValue='10' style={{ width: '85%' }}
+                            <Select className='select' defaultValue='10' style={{ width: '86%' }}
                             onChange={handleChangeLimit}>
                                 <Option value="5">5 items per page</Option>
                                 <Option value="10">10 items per page</Option>
                                 <Option value="15">15 items per page</Option>
                                 <Option value="20">20 items per page</Option>
                             </Select>
-                            <span onClick={reload}><ReloadOutlined style={{color: '#FF868E', backgroundColor: '#FFFFFF', padding: 9, borderRadius: 9, marginLeft: 5}}/></span>
+                            <span onClick={reload}><ReloadOutlined style={{width: '13%', color: '#FF868E', backgroundColor: '#FFFFFF', padding: 9, borderRadius: 9, marginLeft: "1%"}}/></span>
                         </div>
                     </div>
                     <div className="photo-grid">

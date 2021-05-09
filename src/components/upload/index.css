@@ -1,8 +1,6 @@
 #upload{
     background-color: #F8F8F7;
     border-radius: 20px;
-    display: inline-block;
-    width: clamp(240px, 94%, 680px);
 }
 
 #close{

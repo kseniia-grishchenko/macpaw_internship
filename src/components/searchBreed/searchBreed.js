@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import { LeftOutlined } from "@ant-design/icons";
+import {LeftOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {getImages} from "../../functions/api";
 import Image from "../image/image";
 import './index.css';
+import SideMenu from "../sideMenu/sideMenu";
 
 
-export default function Search({ match }){
+export default function Search({match, sidebarClassname, mainClassname}){
     const [currentBreedId, setCurrentBreedId] = useState(1);
     const [images, setImages] = useState([]);
     let history = useHistory();
@@ -33,7 +34,7 @@ export default function Search({ match }){
         }
 
         getAllImages(params)
-    }, [currentBreedId])
+    }, [currentBreedId, breedName])
 
 
     const  getAllImages = (params) => {
@@ -49,8 +50,18 @@ export default function Search({ match }){
     }
 
 
+    const getSidebarClassname = (value) => {
+        sidebarClassname(value);
+    }
+    const getMainClassname = (value) => {
+        mainClassname(value);
+    }
+
+
+
     return(
         <div className='searchBreed'>
+            <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
             <UpperPanel/>
             <div>
                 <div id='flexbox2'>

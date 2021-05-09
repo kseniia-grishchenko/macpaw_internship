@@ -1,0 +1,10 @@
+#side-menu{
+    display: none
+}
+
+@media (max-width: 800px) {
+    #side-menu{
+        display: block;
+        margin-bottom: 2vh;
+    }
+}
