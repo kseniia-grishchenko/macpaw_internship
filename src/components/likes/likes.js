@@ -6,10 +6,12 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { getVotes } from "../../functions/api";
 import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
 export default function Likes({sidebarClassname, mainClassname}) {
     const [deleteImage, setDeleteImage] = useState(false);
     const [images, setImages] = useState([])
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
 
     let history = useHistory();
     const goToPreviousPath = () => {
@@ -40,7 +42,10 @@ export default function Likes({sidebarClassname, mainClassname}) {
 
     useEffect(() => {
         getVotedImages()
-            .then(respImages => setImages(respImages));
+            .then(respImages => {
+                setImages(respImages);
+                setIsInfoLoading(false);
+            });
 
     }, [])
 
@@ -74,13 +79,14 @@ export default function Likes({sidebarClassname, mainClassname}) {
                                 LIKES
                             </div>
                         </div>
+                        {isInfoLoading ? <Loader/> :
                             <div className="photo-grid">
                                 {images?.map((like, index) => (
                                         <Image image={like.image} index={index} componentName={'likes'}
                                                deleteClicked={deleteClicked}/>
                                     )
                                 )}
-                            </div>
+                            </div>}
                     </div>
                 </div>
             </div>

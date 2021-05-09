@@ -6,11 +6,13 @@ import {getImages} from "../../functions/api";
 import Image from "../image/image";
 import './index.css';
 import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
 
 export default function Search({match, sidebarClassname, mainClassname}){
     const [currentBreedId, setCurrentBreedId] = useState(1);
     const [images, setImages] = useState([]);
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
     let history = useHistory();
     const goToPreviousPath = () => {
         history.goBack()
@@ -46,6 +48,7 @@ export default function Search({match, sidebarClassname, mainClassname}){
                     breed_name: image.breeds[0]?.name,
                     breed_id: image.breeds[0]?.id,
                 })))
+                setIsInfoLoading(false);
             })
     }
 
@@ -56,8 +59,6 @@ export default function Search({match, sidebarClassname, mainClassname}){
     const getMainClassname = (value) => {
         mainClassname(value);
     }
-
-
 
     return(
         <div className='searchBreed'>
@@ -78,13 +79,13 @@ export default function Search({match, sidebarClassname, mainClassname}){
                         <div id='search-breed'>
                             Search results for: <strong style={{color: 'black'}}>{match.params.breedName}</strong>
                         </div>
+                        {isInfoLoading ? <Loader/> :
                         <div className="photo-grid">
                             {images.map((image, index) => (
                                     <Image image={image} index={index} componentName={'breeds'}/>
                                 )
                             )}
-
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>

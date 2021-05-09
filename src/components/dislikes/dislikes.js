@@ -43,14 +43,16 @@ export default function Dislikes({sidebarClassname, mainClassname}) {
     useEffect(() => {
         getDislikedImages()
             .then(respImages => setImages(respImages));
-        setIsInfoLoading(false);
     }, [])
 
     useEffect(() => {
         setIsInfoLoading(true);
         getDislikedImages()
-            .then(respImages => setImages(respImages));
-        setIsInfoLoading(false);
+            .then(respImages => {
+                setImages(respImages)
+                setIsInfoLoading(false);
+            });
+
 
     }, [deleteImage])
 
