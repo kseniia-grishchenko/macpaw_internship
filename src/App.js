@@ -20,8 +20,6 @@ function App() {
     const [mainClassname, setMainClassname] = useState('main');
     const [background, setBackground] = useState('#E5E5E5');
 
-
-
     const getSidebarClassname = (classname) => {
         setSidebarClassname(classname);
     }
