@@ -1,0 +1,75 @@
+#flexbox2 {
+    display: inline-block;
+}
+
+.main-content {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px 6px 4px 6px;
+}
+
+.photo-grid {
+    display: grid;
+    gap: 2rem;
+
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-auto-rows: 150px;
+    margin: auto;
+
+}
+
+#upper-actions{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    margin-bottom: 2%;
+}
+
+
+.back {
+    background-color: #FBE0DC;
+    border-radius: 9px;
+    flex-basis: 10%;
+    padding: 4px;
+}
+
+#select-breed{
+    flex-basis: 40%;
+}
+
+#select-limit{
+    flex-basis: 20%;
+}
+
+
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item{
+    color: #8C8C8C;
+
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input).ant-select-selector{
+    border-color: #FF868E;
+}
+
+#select-breed > .ant-select, #select-limit > .ant-select{
+    display: flex;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector{
+    border-radius: 9px;
+    flex-basis: 100%;
+    background-color: #F8F8F7;
+
+}
+
+.sort-descending, .sort-ascending {
+    flex-basis: 5%;
+}
+
+
+
+
+
+
+
+

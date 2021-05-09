@@ -1,0 +1,65 @@
+#flexbox1 {
+    display: inline-block;
+    width: 100%;
+}
+
+#flexbox2 {
+    display: block;
+    width: 100%;
+}
+
+.upper-panel{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5%;
+    margin-bottom: 2%;
+    height: 38px;
+}
+
+
+.ant-input-affix-wrapper {
+    border-radius: 9px;
+    padding: 7px 5px 7px 9px;
+}
+
+#search-input {
+    width: 93%;
+    height: clamp(20px, calc(1em/64), 50px);
+    border-radius: 15px;
+    font-size: 1rem;
+    padding: 0;
+}
+
+.search-icon {
+    background-color: #FBE0DC;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 4px;
+    float: right;
+}
+
+.upper-panel .upEmoji {
+    font-size: 1.3rem;
+    background-color: #FFFFFF;
+    padding: 9px 4px 7px 4px;
+    border-radius: 9px;
+    display: inline-block;
+    flex-basis: 6%;
+}
+
+.upEmoji .upEmj {
+    display: block;
+    margin: auto;
+}
+
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):active
+{
+    border-color: #FF868E;
+}
+
+.ant-input-affix-wrapper-focused{
+    border-color: #FF868E;
+    box-shadow: none;
+}
+

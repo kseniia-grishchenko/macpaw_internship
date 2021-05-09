@@ -1,0 +1,11 @@
+.home {
+    border-radius: 5vw;
+}
+
+.home-img{
+    width: 100%;
+    height: 95vh;
+    object-fit: cover;
+    background-color: #FBE0DC;
+    border-radius: 10%;
+}

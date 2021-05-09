@@ -1,0 +1,145 @@
+#flexbox1 {
+    display: inline-block;
+}
+
+#flexbox2 {
+    display: inline-block;
+    margin-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.upper-panel{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1.5%;
+    margin-bottom: 2vh;
+    height: 28px;
+}
+
+#search {
+    height: 34px;
+    flex: 2;
+    flex-basis: 20%;
+}
+
+.ant-input-affix-wrapper {
+    border-radius: 9px;
+    padding: 2px 5px 2px 4px;
+}
+
+#search-input {
+    width: clamp(210px, calc(1em/16), 280px);
+    height: clamp(20px, calc(1em/64), 50px);
+    border-radius: 15px;
+    font-size: 0.7em;
+    padding: 0;
+}
+
+.search-icon {
+    background-color: #FBE0DC;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.upper-panel .emoji {
+    flex: 1;
+    background-color: #FFFFFF;
+    padding: 7px 6px 7px 6px;
+    border-radius: 9px;
+}
+
+.emoji .emj {
+    display: block;
+    margin: auto;
+    font-size: 24px;
+}
+
+.main-content {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px 6px 4px 6px;
+    min-height: calc(100vmin - 8vh - 38px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+#label {
+    display: table-cell;
+    vertical-align: middle;
+    background-color: #FF868E;
+    border-radius: 9px;
+    font-size: 0.8em;
+    color: #FFFFFF;
+    flex-basis: 20%;
+    text-align: center;
+    padding: 1% 0.2vw 1% 0.2vw;
+    letter-spacing: 0.3em;
+
+}
+
+.main-img{
+    display: block;
+    margin: 0 auto;
+    width: 95%;
+    height: auto;
+    max-height: 380px;
+    max-width: 95%;
+    padding: 10px 2% 10px 2%;
+    object-fit: contain;
+    border-radius: 5%;
+}
+
+#action-panel {
+    display: inline-flex;
+    flex-direction: row;
+    position: relative;
+    bottom: 30px;
+    left: 35%;
+    height: 60px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+#action-panel .emoji {
+    padding: 9% 5px 10px 5px;
+    width: 60px;
+}
+
+
+.smile {
+    background-color: #97EAB9;
+    margin: 1%;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.like {
+    background-color: #FF868E;
+    margin: 1%;
+}
+
+.frown {
+    background-color: #FFD280;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    margin: 1%;
+}
+
+#upper-actions{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    margin-bottom: 2%;
+}
+
+
+.back {
+    background-color: #FBE0DC;
+    border-radius: 9px;
+    flex-basis: 10%;
+    padding: 4px;
+}
+
+
