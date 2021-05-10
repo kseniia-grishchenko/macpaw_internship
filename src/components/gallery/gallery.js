@@ -7,12 +7,14 @@ import Image from "../image/image";
 import {getBreeds, getImages} from "../../functions/api";
 import { useHistory } from "react-router-dom";
 import SideMenu from "../sideMenu/sideMenu";
+import Loader from "../loader/loader";
 
 export default function Gallery({ sidebarClassname, mainClassname }) {
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [selectedBreed, setSelectedBreed] = useState({});
+    const [isInfoLoading, setIsInfoLoading] = useState(true);
 
     const history = useHistory();
 
@@ -99,11 +101,11 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
     const  getAllImages = (params) => {
         getImages(params)
             .then(resp => {
-                console.log(resp)
                 setImages(resp.map(image => ({
                     id: image.id,
                     url: image.url
                 })))
+                setIsInfoLoading(false);
             })
     }
 
@@ -211,11 +213,12 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
                             <span onClick={reload}><ReloadOutlined style={{width: '13%', color: '#FF868E', backgroundColor: '#FFFFFF', padding: 9, borderRadius: 9, marginLeft: "1%"}}/></span>
                         </div>
                     </div>
+                    {isInfoLoading ? <Loader/> :
                     <div className="photo-grid">
                         {images.map((image, index) =>
                             <Image image={image} index={index} componentName='gallery'/>
                         )}
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

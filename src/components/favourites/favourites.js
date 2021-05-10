@@ -24,25 +24,23 @@ export default function Favourites({sidebarClassname, mainClassname}){
         }
     }
 
-
-
     useEffect(() =>{
         getFavourites()
             .then(resp => {
                 setFavorites(resp)
                 setDeleteImage(false)
             })
-        setIsInfoLoading(false);
 
     }, [])
 
     useEffect(() =>{
+        setIsInfoLoading(true);
         getFavourites()
             .then(resp => {
+                setIsInfoLoading(false);
                 setFavorites(resp)
                 setDeleteImage(false)
             })
-
     }, [deleteImage])
 
     const getSidebarClassname = (value) => {

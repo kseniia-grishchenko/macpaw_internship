@@ -27,7 +27,7 @@ export default function BreedInfo({ match, sidebarClassname, mainClassname }){
 
     useEffect(() => {
         setIsInfoLoading(false);
-    })
+    }, [])
 
 
     return(
@@ -51,35 +51,35 @@ export default function BreedInfo({ match, sidebarClassname, mainClassname }){
                         </div>
                         {isInfoLoading ? <Loader/> :
                         <div>
-                        <div>
-                            <img className='main-img' src={image.url}/>
-                        </div>
-                        <div id='info'>
-                            <div id='breedName'>
-                                {selectedBreed[0].name}
+                            <div>
+                                <img className='main-img' src={image.url}/>
                             </div>
-                            <div id='bredFor'>
-                                {selectedBreed[0].bred_for}
-                            </div>
-                            <div id='flexboxInfo'>
-                                <div id='column1'>
-                                    <strong>Temperament:</strong> <br/>
-                                    {selectedBreed[0].temperament}
+                            <div id='info'>
+                                <div id='breedName'>
+                                    {selectedBreed[0].name}
                                 </div>
-                                <div id='column2'>
-                                    <div>
-                                        <strong>Height:</strong> {selectedBreed[0].height.metric}
+                                <div id='bredFor'>
+                                    {selectedBreed[0].bred_for}
+                                </div>
+                                <div id='flexboxInfo'>
+                                    <div id='column1'>
+                                        <strong>Temperament:</strong> <br/>
+                                        {selectedBreed[0].temperament}
                                     </div>
-                                    <div>
-                                        <strong>Weight:</strong> {selectedBreed[0].weight.metric}
-                                    </div>
-                                    <div>
-                                        <strong>Life span:</strong> {selectedBreed[0].life_span}
+                                    <div id='column2'>
+                                        <div>
+                                            <strong>Height:</strong> {selectedBreed[0].height.metric}
+                                        </div>
+                                        <div>
+                                            <strong>Weight:</strong> {selectedBreed[0].weight.metric}
+                                        </div>
+                                        <div>
+                                            <strong>Life span:</strong> {selectedBreed[0].life_span}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>}
+                        </div>}
                     </div>
                 </div>
             </div>

@@ -136,7 +136,7 @@ export default function Voting ({sidebarClassname, mainClassname}) {
                             </div>
                         </div>
                         {isImageLoading ?  <Loader/> :
-                            (<div>
+                            (<div id='votingArea'>
                                 <img className='main-img' alt={image.id} src={image.url}/>
                             <div id='action-panel'>
                             <div className='emoji smile' onClick={addToLikes} >

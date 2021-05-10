@@ -67,6 +67,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
                     breed_name: image.breeds[0]?.name,
                     breed_id: image.breeds[0]?.id,
                 })))
+                setIsInfoLoading(false);
             })
     }
 
@@ -88,7 +89,6 @@ export default function Breeds({sidebarClassname, mainClassname}){
 
             getAllImages(params);
             getAllBreeds();
-            setIsInfoLoading(false);
         } catch(err) {
             console.error(err);
         }
