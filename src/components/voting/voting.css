@@ -95,15 +95,14 @@
     display: inline-flex;
     flex-direction: row;
     position: relative;
-    bottom: 30px;
-    left: 35%;
-    height: 60px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     background-color: #FFFFFF;
     border-radius: 10px;
 }
 
 #action-panel .emoji {
-    padding: 9% 5px 10px 5px;
+    padding: 9% 5px 9% 5px;
     width: 60px;
 }
 
