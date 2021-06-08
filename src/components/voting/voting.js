@@ -1,24 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import { Input } from 'antd';
 import {
-    SearchOutlined,
     SmileOutlined,
     HeartOutlined,
     FrownOutlined,
-    LeftOutlined,
-    LoadingOutlined,
-    MenuUnfoldOutlined
+    LeftOutlined
 } from '@ant-design/icons';
-import './voting.css';
-import Action from "../action/action";
+import './index.css';
+import {Action} from "../action/action";
 import UpperPanel from "../upperPanel/upperPanel";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { addImageToDislikes, addImageToLikes, addImageToFavourites } from "../../functions/api";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
-export default function Voting ({sidebarClassname, mainClassname}) {
+export const Voting =  ({sidebarClassname, mainClassname})  => {
     const [actions ,setActions] = useState([])
     const [image, setImage] = useState({});
     const [isImageLoading, setIsImageLoading] = useState(true);
@@ -46,9 +42,12 @@ export default function Voting ({sidebarClassname, mainClassname}) {
         }
     }
 
-    useEffect(async () => {
-            await refreshImage();
-            setIsImageLoading(false)
+    useEffect(() => {
+            const updateImage = async () => {
+                await refreshImage();
+                setIsImageLoading(false);
+            }
+            updateImage();
     }, []);
 
     const addToLikes = () => {
@@ -61,12 +60,10 @@ export default function Voting ({sidebarClassname, mainClassname}) {
             imageId: image.id,
             time: time
         }
-        console.log("imageId", image.id)
 
         addImageToLikes(image.id)
-            .then(resp => {
-                refreshImage();
-            });
+            .then(refreshImage())
+            .catch(error => console.log(error));
 
         setActions([...actions, action]);
     }
@@ -83,9 +80,8 @@ export default function Voting ({sidebarClassname, mainClassname}) {
         }
 
         addImageToFavourites(image.id)
-            .then(resp => {
-                refreshImage();
-            });
+            .then(refreshImage())
+            .catch(error => console.log(error));
         setActions([...actions, action]);
     }
 
@@ -93,21 +89,17 @@ export default function Voting ({sidebarClassname, mainClassname}) {
         let current = new Date();
         const hours = current.getHours();
         const minutes = current.getMinutes();
-        console.log('minutes', minutes)
-        let time = ''
-        console.log('length', minutes.length)
+        let time = '';
         minutes.length  < 2 ? time = `${hours} : 0${minutes}` : time = `${hours} : ${minutes}`;
-        console.log('time', time)
         const action = {
             name: 'Dislikes',
             imageId: image.id,
             time: time
-        }
+        };
 
         addImageToDislikes(image.id)
-            .then(resp => {
-                refreshImage();
-            });
+            .then(refreshImage())
+            .catch(error => console.log(error));
 
         setActions([...actions, action]);
     }

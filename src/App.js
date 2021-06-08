@@ -2,17 +2,17 @@ import 'antd/dist/antd.css';
 import './index.css';
 import React, {useEffect, useState} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import SideBar from "./components/sidebar/sidebar.js";
-import Home from "./components/home/home.js";
-import Voting from "./components/voting/voting.js";
-import Breeds from "./components/breeds/breeds";
-import Gallery from "./components/gallery/gallery";
-import BreedInfo from "./components/breedInfo/breedInfo";
-import Upload from "./components/upload/upload";
-import Search from "./components/searchBreed/searchBreed";
-import Favourites from "./components/favourites/favourites";
-import Likes from "./components/likes/likes";
-import Dislikes from "./components/dislikes/dislikes";
+import {SideBar} from "./components/sidebar/sidebar.js";
+import {Home} from "./components/home/home.js";
+import {Voting} from "./components/voting/voting.js";
+import {Breeds} from "./components/breeds/breeds";
+import {Gallery} from "./components/gallery/gallery";
+import {BreedInfo} from "./components/breedInfo/breedInfo";
+import {Upload} from "./components/upload/upload";
+import {Search} from "./components/searchBreed/searchBreed";
+import {Favourites} from "./components/favourites/favourites";
+import {Likes} from "./components/likes/likes";
+import {Dislikes} from "./components/dislikes/dislikes";
 
 
 function App() {

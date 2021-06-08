@@ -1,10 +1,9 @@
 import React from 'react';
-import './sidebar.css';
+import './index.css';
 import { useHistory } from "react-router-dom";
-import SideMenu from "../sideMenu/sideMenu";
+import {SideMenu} from "../sideMenu/sideMenu";
 
-
-function SideBar({ classname, sidebarName, mainClassname }) {
+export const SideBar = ({ classname, sidebarName, mainClassname }) => {
 
     const history = useHistory();
 
@@ -24,19 +23,19 @@ function SideBar({ classname, sidebarName, mainClassname }) {
     return(
         <div className={classname}>
             <SideMenu componentName={'sidebar'} sidebarClassname={getSidebarName} mainClassname={getMainClassname}/>
-            <img id='logo' src={'/images/Logo.png'}/>
-            <h2 id='hi-intern'>Hi intern!</h2>
-            <h4 id='welcome'>Welcome to MSI 2021 Front-end test</h4>
+            <img id='logo' src={'/images/Logo.png'} alt={'logo'}/>
+            <h2 id='hi-intern'>Hi there!</h2>
+            <h4 id='welcome'>Welcome to the beautiful dog app</h4>
             <h4 id='start'>Lets start using The Dogs API</h4>
             <div id='grid'>
                 <div>
-                    <img  className='images' src={'/images/Mask Group voting.png'}/>
+                    <img  className='images' src={'/images/Mask Group voting.png'} alt={'Voting'}/>
                 </div>
                 <div>
-                    <img className='images' src={'/images/Mask Group breeds.png'}/>
+                    <img className='images' src={'/images/Mask Group breeds.png'} alt={'Breeds'}/>
                 </div>
                 <div>
-                    <img className='images' src={'/images/Mask Group gallery.png'}/>
+                    <img className='images' src={'/images/Mask Group gallery.png'} alt={'Gallery'}/>
                 </div>
                 <div className='rectangle'>
                     <p className='btn-name' onClick={() => redirect('voting')}>VOTING</p>
@@ -52,5 +51,3 @@ function SideBar({ classname, sidebarName, mainClassname }) {
     )
 
 }
-
-export default SideBar

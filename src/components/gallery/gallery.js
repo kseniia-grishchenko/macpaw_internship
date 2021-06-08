@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined, MenuUnfoldOutlined, ReloadOutlined, UploadOutlined} from "@ant-design/icons";
+import {LeftOutlined, ReloadOutlined, UploadOutlined} from "@ant-design/icons";
 import './index.css'
 import {Select} from "antd";
 import Image from "../image/image";
 import {getBreeds, getImages} from "../../functions/api";
 import { useHistory } from "react-router-dom";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
-export default function Gallery({ sidebarClassname, mainClassname }) {
+export const Gallery = ({ sidebarClassname, mainClassname }) => {
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -54,7 +54,7 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
 
     const handleChangeBreed = (value) => {
         if(value === 'none'){
-            setSelectedBreed(() => {});
+            setSelectedBreed({});
             const params = {
                 limit: limit
             }
@@ -66,7 +66,7 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
             id: tempBreed[0].id,
             name: tempBreed[0].name
         }
-        setSelectedBreed(() => obj);
+        setSelectedBreed(obj);
         const params = {
             breed_id: obj.id,
             limit: limit
@@ -107,6 +107,7 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
                 })))
                 setIsInfoLoading(false);
             })
+            .catch(error => console.log(error));
     }
 
     const getAllBreeds = () => {
@@ -117,6 +118,7 @@ export default function Gallery({ sidebarClassname, mainClassname }) {
                     name: breed.name
                 })))
             })
+            .catch(error => console.log(error));
     }
 
     useEffect( () => {

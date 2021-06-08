@@ -4,9 +4,9 @@ import  './index.css';
 import { useHistory } from "react-router-dom";
 import DropzoneArea from "../uploadDropzone/uploadDropzone";
 import axios from "axios";
-import SideMenu from "../sideMenu/sideMenu";
+import {SideMenu} from "../sideMenu/sideMenu";
 
-export default function Upload({ sidebarClassname, mainClassname }){
+export const Upload = ({ sidebarClassname, mainClassname }) => {
     const [isUploaded, setIsUploaded] = useState(false);
     const [image, setImage] = useState({});
     const [successfullyUploaded, setSuccessfullyUploaded] = useState(false);
@@ -28,7 +28,7 @@ export default function Upload({ sidebarClassname, mainClassname }){
         sidebarClassname('sidebar-content');
     }
 
-    const checkIfUploaded = (value) => {
+    const uploaded = (value) => {
         setIsUploaded(value);
     }
 
@@ -40,7 +40,6 @@ export default function Upload({ sidebarClassname, mainClassname }){
         const formData = new FormData();
 
         formData.append('file', image)
-        console.log('formdata', formData)
 
         try{
             const resp = await axios.post(`${process.env.REACT_APP_API_URL}images/upload`, formData, config);
@@ -95,15 +94,15 @@ export default function Upload({ sidebarClassname, mainClassname }){
             <div id='uploadTitle'>Upload a .jpg or .png Dog Image</div>
             <div id='uploadDescription'>Any uploads must comply with the <a style={{color: '#FF868E'}}
             href='https://www.thedogapi.com/privacy' target='_blank'>upload guidelines</a> or face deletion.</div>
-            {!successfullyUploaded &&
-            <DropzoneArea checkIfUploaded={checkIfUploaded} getImage={getImage}/>
-            }
-            { !isUploaded &&
+            {!successfullyUploaded && (
+            <DropzoneArea uploaded={uploaded} getImage={getImage}/>
+            )}
+            { !isUploaded && (
             <div id='image-label'>
                 No file selected
             </div>
-            }
-            { isUploaded && error === '' &&
+            )}
+            { isUploaded && error === '' && (
                 <div>
                     <div id='image-label'>
                         Image File Name: {image.name}
@@ -112,19 +111,19 @@ export default function Upload({ sidebarClassname, mainClassname }){
                         UPLOAD PHOTO
                     </div>
                 </div>
-            }
-            {success &&
+            )}
+            {success && (
             <div id='upload-response'>
                 <CheckCircleOutlined style={{color: '#97EAB9', padding: '0 1vw'}}/>
                 <span>Thanks for the Upload - Dog found!</span>
             </div>
-            }
-            {  error !== '' &&
+            )}
+            {  error !== '' && (
             <div id='upload-response'>
                 <CloseCircleOutlined style={{color: '#FF868E', padding: '0 1vw'}}/>
                 <span>No Dog found - try a different one</span>
             </div>
-            }
+            )}
         </div>
         </div>
     )

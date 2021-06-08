@@ -1,8 +1,8 @@
 import React from 'react';
-import './home.css';
-import SideMenu from "../sideMenu/sideMenu";
+import './index.css';
+import {SideMenu} from "../sideMenu/sideMenu";
 
-function Home({sidebarClassname, mainClassname}) {
+export const Home = ({sidebarClassname, mainClassname}) => {
 
     const getSidebarClassname = (value) => {
         sidebarClassname(value);
@@ -14,10 +14,8 @@ function Home({sidebarClassname, mainClassname}) {
     return (
         <div className='home'>
             <SideMenu sidebarClassname={getSidebarClassname} mainClassname={getMainClassname}/>
-            <img className='img home-img' src={'/images/girl-and-pet.png'}/>
+            <img className='img home-img' src={'/images/girl-and-pet.png'} alt={'Main'}/>
         </div>
     )
 
 }
-
-export default Home

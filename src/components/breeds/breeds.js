@@ -1,15 +1,15 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
 import './index.css';
 import Image from "../image/image";
-import {LeftOutlined, MenuUnfoldOutlined, SortAscendingOutlined, SortDescendingOutlined} from "@ant-design/icons";
+import {LeftOutlined, SortAscendingOutlined, SortDescendingOutlined} from "@ant-design/icons";
 import { Select } from 'antd';
 import {getImages, getBreeds} from "../../functions/api";
 import {useHistory} from "react-router-dom";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
-export default function Breeds({sidebarClassname, mainClassname}){
+export const Breeds = ({sidebarClassname, mainClassname}) => {
     const [images, setImages] = useState([]);
     const [breeds, setBreeds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -26,7 +26,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
 
     const handleChangeBreed = (value)  => {
         if(value === 'all'){
-            setSelectedBreed(() => {});
+            setSelectedBreed({});
             const params = {
                 limit: limit
             }
@@ -38,7 +38,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
             id: tempBreed[0].id,
             name: tempBreed[0].name
         }
-        setSelectedBreed(() => obj);
+        setSelectedBreed(obj);
         const params = {
             breed_id: obj.id,
             limit: limit
@@ -46,7 +46,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
         getAllImages(params);
     }
 
-    function handleChangeLimit(value){
+    const handleChangeLimit = (value) => {
         setLimit(value);
     }
 
@@ -69,6 +69,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
                 })))
                 setIsInfoLoading(false);
             })
+            .catch(error => console.log(error))
     }
 
     const getAllBreeds = () => {
@@ -79,6 +80,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
                     name: breed.name
                 })))
             })
+            .catch(error => console.log(error))
     }
 
     useEffect( () => {
@@ -92,7 +94,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
         } catch(err) {
             console.error(err);
         }
-    }, []);
+    }, [limit]);
 
     useEffect(() => {
         let params;
@@ -109,7 +111,7 @@ export default function Breeds({sidebarClassname, mainClassname}){
         setIsInfoLoading(true);
         getAllImages(params)
         setIsInfoLoading(false);
-    }, [limit])
+    }, [limit, selectedBreed])
 
     const getSidebarClassname = (value) => {
         sidebarClassname(value);
