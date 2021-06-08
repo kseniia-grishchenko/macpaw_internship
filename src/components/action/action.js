@@ -1,8 +1,8 @@
 import React from 'react';
-import './action.css'
+import './index.css'
 import { SmileOutlined, HeartOutlined, FrownOutlined } from '@ant-design/icons';
 
-export default function Action({time, imageId, action}) {
+export const Action = ({time, imageId, action}) => {
     return(
         <div className='action'>
             <span id='time'>{time}</span>

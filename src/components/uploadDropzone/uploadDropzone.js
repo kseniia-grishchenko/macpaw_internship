@@ -23,7 +23,7 @@ const rejectStyle = {
     borderColor: '#ff1744'
 };
 
-function DropzoneArea({checkIfUploaded, getImage}) {
+function DropzoneArea({uploaded, getImage}) {
     const [files, setFiles] = useState([]);
     const [isUploaded, setIsUploaded] = useState(false);
 
@@ -33,7 +33,7 @@ function DropzoneArea({checkIfUploaded, getImage}) {
             preview: URL.createObjectURL(file)
         }))));
         setIsUploaded(true);
-        checkIfUploaded(true)
+        uploaded(true)
     }, []);
 
     const {
@@ -77,16 +77,16 @@ function DropzoneArea({checkIfUploaded, getImage}) {
     // clean up
     useEffect(() => () => {
         files.forEach(file => URL.revokeObjectURL(file.preview));
-        checkIfUploaded(false);
+        uploaded(false);
     }, [files]);
 
     return (
             <div  className='dropzone' {...getRootProps({style})}>
                 <input {...getInputProps()} />
                 {thumbs}
-                { !isUploaded &&
+                { !isUploaded && (
                 <div id='instructions'><strong>Drag here</strong> your file or <strong>Click here</strong> to upload</div>
-                }
+                )}
             </div>
     )
 }

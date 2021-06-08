@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import Image from "../image/image";
 import {useHistory} from "react-router-dom";
-import axios from "axios";
-import {deleteImageFromFavourites, getFavourites} from "../../functions/api";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {getFavourites} from "../../functions/api";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
-export default function Favourites({sidebarClassname, mainClassname}){
+export const Favourites = ({sidebarClassname, mainClassname}) => {
     const [favourites, setFavorites] = useState([]);
     const [deleteImage, setDeleteImage] = useState(false);
     const [isInfoLoading, setIsInfoLoading] = useState(true);
@@ -25,15 +24,6 @@ export default function Favourites({sidebarClassname, mainClassname}){
     }
 
     useEffect(() =>{
-        getFavourites()
-            .then(resp => {
-                setFavorites(resp)
-                setDeleteImage(false)
-            })
-
-    }, [])
-
-    useEffect(() =>{
         setIsInfoLoading(true);
         getFavourites()
             .then(resp => {
@@ -41,6 +31,7 @@ export default function Favourites({sidebarClassname, mainClassname}){
                 setFavorites(resp)
                 setDeleteImage(false)
             })
+            .catch(error => console.log(error));
     }, [deleteImage])
 
     const getSidebarClassname = (value) => {

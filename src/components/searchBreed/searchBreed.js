@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import {useHistory} from "react-router-dom";
 import {getImages} from "../../functions/api";
 import Image from "../image/image";
 import './index.css';
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
 
-export default function Search({match, sidebarClassname, mainClassname}){
+export const Search = ({match, sidebarClassname, mainClassname}) => {
     const [currentBreedId, setCurrentBreedId] = useState(1);
     const [images, setImages] = useState([]);
     const [isInfoLoading, setIsInfoLoading] = useState(true);
@@ -19,7 +19,6 @@ export default function Search({match, sidebarClassname, mainClassname}){
     }
 
     const breedName = match.params.breedName.toLowerCase();
-    console.log(breedName);
 
     const getSpecificBreed = () => {
         const breeds = JSON.parse(localStorage.getItem('breeds'));
@@ -50,6 +49,7 @@ export default function Search({match, sidebarClassname, mainClassname}){
                 })))
                 setIsInfoLoading(false);
             })
+            .catch(error => console.log(error));
     }
 
 

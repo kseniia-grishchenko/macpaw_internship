@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {FrownOutlined, HeartOutlined, LeftOutlined, MenuUnfoldOutlined, SmileOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import './index.css';
 import { useHistory } from "react-router-dom";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
 
-export default function BreedInfo({ match, sidebarClassname, mainClassname }){
+export const BreedInfo = ({ match, sidebarClassname, mainClassname }) => {
     const [isInfoLoading, setIsInfoLoading] = useState(true);
     const breed_id = match.params.id;
     const image = JSON.parse(localStorage.getItem('image'));
@@ -52,7 +52,7 @@ export default function BreedInfo({ match, sidebarClassname, mainClassname }){
                         {isInfoLoading ? <Loader/> :
                         <div>
                             <div>
-                                <img className='main-img' src={image.url}/>
+                                <img className='main-img' src={image.url} alt={image.breed_name}/>
                             </div>
                             <div id='info'>
                                 <div id='breedName'>

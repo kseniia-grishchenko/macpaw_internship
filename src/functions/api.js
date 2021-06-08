@@ -1,27 +1,30 @@
-import React from 'react';
 import axios from "axios";
-import favourites from "../components/favourites/favourites";
 
 async function getImages(params) {
-    const respImages = await axios.get(`${process.env.REACT_APP_API_URL}images/search`,
-        {
-            /*headers: {
-                'x-api-key': process.env.REACT_APP_API_KEY,
-            },*/
-            params: params
-        })
-    return respImages.data;
+    try{
+        const respImages = await axios.get(`${process.env.REACT_APP_API_URL}images/search`,
+            {
+                params: params
+            })
+        return respImages.data;
+    } catch(error){
+        console.log(error);
+    }
+
 }
 
 async function getBreeds(){
-    const respBreeds = await axios.get(`${process.env.REACT_APP_API_URL}breeds/`,
-        {
-            headers: {
-                'x-api-key': process.env.REACT_APP_API_KEY
-            }
-        });
-    localStorage.setItem('breeds', JSON.stringify(respBreeds.data))
-    return respBreeds.data;
+    try{
+        const respBreeds = await axios.get(`${process.env.REACT_APP_API_URL}breeds/`,
+            {
+                headers: {
+                    'x-api-key': process.env.REACT_APP_API_KEY
+                }
+            });
+        return respBreeds.data;
+    } catch(error){
+        console.log(error);
+    }
 }
 
 async function addImageToLikes(image_id){
@@ -124,10 +127,7 @@ async function getVotes(value){
                     'x-api-key': process.env.REACT_APP_API_KEY
                 }
             })
-        console.log('responsee', resp.data)
-        const likes = resp.data.filter(like => like.value === value)
-        console.log("likes", likes)
-        return likes;
+        return resp.data.filter(like => like.value === value);
     }catch (error){
         console.log(error)
     }
@@ -137,7 +137,6 @@ async function deleteImageFromVotes(image_id, vote_type){
     try{
         const votes = JSON.parse(localStorage.getItem(vote_type));
         const image = votes.filter(vote => vote.image.id === image_id)
-        console.log('imageDel', image)
         const resp = await axios.delete(`${process.env.REACT_APP_API_URL}votes/${image[0].vote_id}`,  {
             headers: {
                 'x-api-key': process.env.REACT_APP_API_KEY,

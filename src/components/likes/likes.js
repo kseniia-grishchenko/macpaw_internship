@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import UpperPanel from "../upperPanel/upperPanel";
-import {LeftOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
+import {LeftOutlined} from "@ant-design/icons";
 import Image from "../image/image";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { getVotes } from "../../functions/api";
-import SideMenu from "../sideMenu/sideMenu";
-import Loader from "../loader/loader";
+import {SideMenu} from "../sideMenu/sideMenu";
+import {Loader} from "../loader/loader";
 
-export default function Likes({sidebarClassname, mainClassname}) {
+export const Likes = ({sidebarClassname, mainClassname}) => {
     const [deleteImage, setDeleteImage] = useState(false);
     const [images, setImages] = useState([])
     const [isInfoLoading, setIsInfoLoading] = useState(true);
@@ -45,7 +45,8 @@ export default function Likes({sidebarClassname, mainClassname}) {
             .then(respImages => {
                 setImages(respImages);
                 setIsInfoLoading(false);
-            });
+            })
+            .catch(error => console.log(error));
 
     }, [])
 
